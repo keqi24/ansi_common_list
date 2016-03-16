@@ -13,9 +13,8 @@
 
 ; (println (our-listp '(a b c)))
 
-(setf x (cons 'a nil))
-(setf y (cons 'a nil))
+; (setf x (cons 'a nil))
+; (setf y (cons 'a nil))
 
-
-(println (eq x y))
-(println (equal x y))
+; (println (eq x y))
+; (println (equal x y))
