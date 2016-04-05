@@ -202,8 +202,40 @@ Lisp == (list processing)
 
 
 # Write a program that writes programs
+## C macro 
+```
+#define triple(X) 3 * X
+
+triple(10) --> 30
+triple(5 + 5) --> 20
+```
+
+>What does this line do? It's a simple instruction written in the preprocessor language that instructs it to replace all instances of triple(X) with 3 * X
+
+```
+(defmacro triple (x)
+	`(* 3 ,x))
 
 
+(princ (triple 10))
+(terpri)
+(princ (triple (+ 5 5)))
+(terpri)
+```
+
+
+```
+(defmacro while (test &rest body) 
+	`(do ()
+		((not ,test))
+		,@body))
+
+(setf x 0)
+(while (< x 10)
+	(princ x)
+	(terpri)
+	(incf x))
+```
 
 
 

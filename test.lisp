@@ -47,9 +47,15 @@
 ; (print (fun '(2 2 3)))
 
 ; (defun 100+ (x) (+ 100 x))
-(defmacro 100+ (x) `(+ 100 ,x))
+; (defmacro 100+ (x) `(+ 100 ,x))
 
-(print (100+ 3))
+; (print (100+ 3))
+
+; (setf data (loop for x in '("aaa" "bbb" "ccc")
+; 	while x collect x))
+; (princ data)
+
+(princ (concatenate 'string '("aaa" "bbb" "ccc"))
 
 
 

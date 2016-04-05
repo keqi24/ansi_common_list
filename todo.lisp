@@ -1,6 +1,6 @@
 (defmacro todo (name &rest body)
 	`(progn 
-		(format t "todo:~A~%" ,name)
+		(format t "~A~%" ,name)
 		,@body))
 
 
@@ -11,10 +11,33 @@
 ; 		(print ,node)))
 
 (defmacro item (priority node)
-	`(format t "  item: ~A ~A ~%" ,node ',(cdr priority)))
+	`(format t "  * ~A ~A ~%" ,node ',(car (cdr priority))))
 
 
-(todo "housework"
-    (item (priority high) "Clean the house.")
-    (item (priority medium) "Wash the dishes.")
-    (item (priority medium) "Buy more soap."))
+; (todo "housework"
+;     (item (priority high) "Clean the house.")
+;     (item (priority medium) "Wash the dishes.")
+;     (item (priority medium) "Buy more soap."))
+
+; (defmacro printTodo (file)
+; 	`(let ((in (open ,file)))
+; 		(let ((data (loop for line = (read-line in nil)
+; 			while line collect line)))
+; 			(princ (car data))
+; 		(close in)))
+
+
+; (setf in (open "todo_list.txt"))
+; (setf data (loop for line = (read-line in nil)
+; 	while line collect line))
+; (princ data)
+; (close in)
+
+; (printTodo "todo_list.txt")
+
+; (todo "housework"     (item (priority high) "Clean the house.")
+;      (item (priority medium) "Wash the dishes.")
+;      (item (priority medium) "Buy more soap."))
+
+
+(load "todo_list.txt")

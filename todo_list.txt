@@ -1,0 +1,4 @@
+(todo "housework"
+    (item (priority high) "Clean the house.")
+    (item (priority medium) "Wash the dishes.")
+    (item (priority medium) "Buy more soap."))
