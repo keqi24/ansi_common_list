@@ -1,3 +1,5 @@
+# Preface
+
 ##1. Before introdue what is Lisp, I want to show how to write code using lisp
 
 ```
@@ -35,6 +37,9 @@ God use Lisp
 ## 5. Lisp in the eyes who don't like it
 WTF
 
+
+
+#Code as data
 
 
 ## Before talking about Lisp let's talk about XML first
@@ -80,6 +85,157 @@ int add(int arg1, int arg2)
 
 > So, where are we? Looks like we've just arrived to an interesting point. A concept that has traditionally been so hard to understand is now amazingly simple and intuitive. Code is also always data! 
 
+
+## Any use of this or any programe use XML as code
+Like Ant and Maven.
+How Ant works?
+```
+<project>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+        <copy todir="../new/dir">
+            <fileset dir="src_dir"/>
+        </copy>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="oata.HelloWorld"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    </target>
+
+</project>
+
+```
+
+>The snippet above copies a source directory to a destination directory. Ant locates a "copy" task (a Java class, really), sets appropriate parameters (todir and fileset) by calling appropriate Java methods and then executes the task.
+>Ant comes with a set of core tasks and anyone can extend it with tasks of their own simply by writing Java classes that follow certain conventions. Ant finds these classes and executes them whenever XML elements with appropriate names are encountered. Pretty simple. 
+
+> it acts as an interpreter for a language that uses XML as its syntax by translating XML elements to appropriate Java instructions.
+
+## Why use XML?
+```
+<copy todir="../new/dir">
+    <fileset dir="src_dir"/>
+</copy>
+```
+
+```
+CopyTask copy = new CopyTask();
+Fileset fileset = new Fileset();
+
+fileset.setDir("src_dir");
+copy.setToDir("../new/dir");
+copy.setFileset(fileset);
+
+copy.execute();
+```
+
+>The code is almost the same, albeit a little longer than the original XML. So what's different? The answer is that the XML snippet introduces a special semantic construct for copying. If we could do it in Java it would look like this:
+
+```
+copy("../new/dir")
+{
+    fileset("src_dir");
+}
+```
+>If we had an automatic converter from XML to Java it would likely produce the above gibberish. The reason for this is that Java's accepted syntax tree grammar is fixed by the language specification - we have no way of modifying it. We can add packages, classes, methods, but we cannot extend Java to make addition of new operators possible. Yet we can do it to our heart's content in XML - its syntax tree isn't restricted by anything except our interpreter! 
+
+
+>For complex operators this ability provides tremendous benefits. Can you imagine writing special operators for checking out source code, compiling files, running unit testing, sending email? Try to come up with some. If you're dealing with a specialized problem (in our case it's building projects) these operators can do wonders to decrease the amount of code you have to type and to increase clarity and code reuse. Interpreted XML makes this extremely easy to accomplish because it's a simple data file that stores hierarchical data. We do not have this option in Java because it's hierarchical structure is fixed 
+
+
+## Lisp
+```
+(copy 
+    (todir ".../new/dir")
+    (fileset (dir "src_dir")))
+```
+
+Lisp == (list processing)
+
+```
+(* 1 2)
+(+ 2 3)
+```
+
+>When a Lisp system encounters lists in the source code it acts exactly like Ant does when it encounters XML - it attempts to execute them. In fact, Lisp source code is only specified using lists, just like Ant source code is only specified using XML. Lisp executes lists in the following manner. The first element of the list is treated as the name of a function. The rest of the elements are treated as functions parameters. If one of the parameters is another list it is executed using the same principles and the result is passed as a parameter to the original function. That's it. We can write real code now:
+
+
+>Note that so far every list we've specified was treated by a Lisp system as code. But how can we treat a list as data? Again, imagine an Ant task that accepts XML as one of its parameters. In Lisp we do this using a quote operator ' like so:
+
+```
+'(* 1 2)
+'(+ 2 3)
+
+(car '(+ 1 2))
+(cdr '(+ 2 3))
+(cons '+ '(1 2))
+(eval (cons '+ '(1 2)))
+```
+
+**Code as data and data as Code**
+
+>You can think of built in Lisp functions as you think of Ant tasks. The difference is that we don't have to extend Lisp in another language (although we can), we can extend it in Lisp itself as we did with the times-two example. Lisp comes with a very compact set of built in functions - the necessary minimum. The rest of the language is implemented as a standard library in Lisp itself.
+
+
+
+```
+(defun add
+    (arg1 arg2)
+    (+ arg1 arg2))
+```
+
+
+
+# Write a program that writes programs
+
+
+
+
+
+
+
+
+
+
+```
+<todo name="housework">
+    <item priority="high">Clean the house.</item>
+    <item priority="medium">Wash the dishes.</item>
+    <item priority="medium">Buy more soap.</item>
+</todo>
+```
+
+
+```
+(defmacro todo (name &rest body)
+    `(progn 
+        (format t "todo:~A~%" ,name)
+        ,@body))
+
+(defmacro item (priority node)
+    `(format t "  item: ~A ~A ~%" ,node ',(cdr priority)))
+
+
+(todo "housework"
+    (item (priority high) "Clean the house.")
+    (item (priority medium) "Wash the dishes.")
+    (item (priority medium) "Buy more soap."))
+```
 
 
 
