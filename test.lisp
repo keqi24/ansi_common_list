@@ -55,7 +55,11 @@
 ; 	while x collect x))
 ; (princ data)
 
-(princ (concatenate 'string '("aaa" "bbb" "ccc"))
+; (princ (concatenate 'string '("aaa" "bbb" "ccc"))
 
 
+(let ((index 0))
+	(incf index)
+	(princ index)
+	(terpri))
 

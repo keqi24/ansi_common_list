@@ -238,12 +238,6 @@ triple(5 + 5) --> 20
 ```
 
 
-
-
-
-
-
-
 ```
 <todo name="housework">
     <item priority="high">Clean the house.</item>
@@ -252,17 +246,7 @@ triple(5 + 5) --> 20
 </todo>
 ```
 
-
 ```
-(defmacro todo (name &rest body)
-    `(progn 
-        (format t "todo:~A~%" ,name)
-        ,@body))
-
-(defmacro item (priority node)
-    `(format t "  item: ~A ~A ~%" ,node ',(cdr priority)))
-
-
 (todo "housework"
     (item (priority high) "Clean the house.")
     (item (priority medium) "Wash the dishes.")
@@ -270,11 +254,24 @@ triple(5 + 5) --> 20
 ```
 
 
+```
+(defmacro todo (name &rest body)
+    `(progn 
+        (format t "~A~%" ,name)
+        ,@body))
+
+(defmacro item (priority node)
+    `(format t "  * ~A (~A) ~%" ,node ',(car (cdr priority))))
+
+(load "todo_list.txt")
+```
+
+
 
 
 
 ## 6. in my eyes
-* Functional programming
+* Functional language
 * H (Code as data)
 * Bottom-up programming
 
@@ -309,23 +306,8 @@ defun add2 (x) (+ x 2))
 (sort '(2 4 1 5 2 4) #'<)
 ```
 
-## 8. Code as data
-* simple form 
- atom or list 
 
-* list (list proccessing)
-
-```
-;build a list
-(list + 2 3)
-
-(+ 2 3)
-(quote (+ 2 3))
-'(1 2 3)
-
-```
-
-
+ There is no real distinction between
 
 
 

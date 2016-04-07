@@ -1,4 +1,14 @@
-(todo "housework"
-    (item (priority high) "Clean the house.")
-    (item (priority medium) "Wash the dishes.")
-    (item (priority medium) "Buy more soap."))
+
+(defparameter owner "Derek")
+(format t "~A's tasks~%" owner)
+(terpri)
+
+
+(defun get_title (name) 
+	(format nil "~A <~A>" name owner))
+
+(todo (get_title "housework")
+    (item (priority "high") "Clean the house.")
+    (item (priority "medium") "Wash the dishes.")
+    (item (priority "medium") "Buy more soap."))
+
