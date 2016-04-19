@@ -1,0 +1,10 @@
+<todo name="housework">
+    <item priority="high">Clean the house.</item>
+    <item priority="medium">Wash the dishes.</item>
+    <item priority="medium">Buy more soap.</item>
+</todo>
+
+(todo "housework")
+    (item (priority "high") "Clean the house.")
+    (item (priority "medium") "Wash the dishes.")
+    (item (priority "medium") "Buy more soap."))

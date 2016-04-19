@@ -43,4 +43,10 @@
 (setf (tabloid-story first-tabloid) 'hello-world)
 (print (tabloid-story second-tabloid))
 
+(todo "housework"
+    (item (priority "high") "Clean the house.")
+    (item (priority "medium") "Wash the dishes.")
+    (item (priority "medium") "Buy more soap."))
+
+
 

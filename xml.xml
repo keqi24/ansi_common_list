@@ -39,6 +39,16 @@
 </copy>
 
 
+<copy>
+    <todir>"../new/dir"</todir>
+    <fileset> 
+        <dir>"src_dir"</dir>
+    </fileset>
+</copy>
 
 
+<task name="Test">
+    <echo message="Hello World!"/>
+</task>
+<Test />
 
