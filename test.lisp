@@ -63,3 +63,62 @@
 	(princ index)
 	(terpri))
 
+
+
+
+
+(copy 
+    (todir ".../new/dir")
+    (fileset (dir "src_dir")))
+
+
+
+
+(print "hello world")
+
+(+ 2 3)
+(+ 2 3 4 5 6)
+
+(defun add2 (x) (+ x 2))
+(add2 10)
+
+(defun oddp (x) 
+	(if (= (mod x 2) 1)
+		T
+		NIL))
+
+
+
+'(* 1 2)
+'(+ 2 3)
+
+(car '(+ 1 2))
+(cdr '(+ 2 3))
+(cons '+ '(1 2))
+(eval (cons '+ '(1 2)))
+
+
+
+(todo "housework"
+    (item (priority "high") "Clean the house.")
+    (item (priority "medium") "Wash the dishes.")
+    (item (priority "medium") "Buy more soap."))
+
+
+
+
+(defmacro todo (name &rest body)
+	`(progn 
+		(format t "~A~%" ,name)
+		,@body
+		(terpri)))
+
+(defmacro item (priority node)
+	`(format t "  * ~A (~A) ~%" ,node ,(car (cdr priority))))
+
+(load "todo_list.txt")
+
+
+
+
+
